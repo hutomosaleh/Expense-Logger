@@ -10,6 +10,12 @@ directory = 'save/'
 json_file = 'save.json'
 
 
+
+"""
+    Read and save json (To remember last used file)
+"""
+
+
 def read_json(filename):
     with open('{}{}'.format(directory, filename), 'r') as f:
         savefile = json.load(f)
@@ -100,8 +106,6 @@ class MainWindow(QMainWindow):
         self.widget.setLayout(main_l)
         self.setCentralWidget(self.widget)
 
-        self.show()
-
     def onDateChanged(self):
         self.date_value = [self.date.dateTime().date().toString()[4:]]
 
@@ -134,7 +138,6 @@ class MainWindow(QMainWindow):
             self.name = name
         except FileNotFoundError:
             print('No file chosen')
-
         self.updateText()
 
     def file_new(self):
@@ -150,7 +153,6 @@ class MainWindow(QMainWindow):
             QMessageBox.information(self, 'File made', 'File successfully created!')
             self.file_new()
             self.updateText()
-
 
     def updateText(self):
         self.label.setText(f'Current loaded file: {self.name}')
